@@ -1,0 +1,131 @@
+# 핫딜 단가 비교 서비스 기획서 (Claude Code 인계용)
+
+## 1. 목표
+여러 쇼핑 소스의 핫딜 상위 10개씩을 모아, 원가 / 할인율 / 단위 단가(개당 또는 100g·100ml당) / 리뷰 / 타사 최저가 비교를 한 화면에 보여주고 "괜찮은 딜"만 추려 주는 반응형 웹.
+
+## 2. 제약 조건
+- **비용 0원** (서버·DB·LLM 모두 무료 한도 안에서)
+- 개발자: 웹 개발자(백엔드/프론트 가능, 서버 운영 경험은 적음), Java/Spring/MyBatis/eGovFrame, Eclipse 주 사용
+- 웹 우선, **모바일 반응형 필수** (mobile-first)
+- 스크래핑은 약관·차단 리스크가 있으므로 공식 API와 RSS 위주
+
+## 3. 아키텍처: 정적 사이트 + 정기 배치
+```
+GitHub Actions (cron, 1~3시간)
+  └─ Java CLI 실행 (mvn package → java -jar)
+       1) 핫딜 후보 수집
+       2) 상품명 → 수량/용량 파싱 → 단가 계산
+       3) 네이버 쇼핑 API로 최저가 교차검증
+       4) data.json 생성
+  └─ GitHub Pages (또는 Cloudflare Pages)로 정적 배포
+프론트: 바닐라 HTML/CSS/JS가 data.json을 읽어 렌더링
+```
+- 상시 서버, DB 서버 없음. **DB는 SQLite 파일 하나로 확정** (자세한 내용은 6-1).
+- Spring Boot/eGovFrame은 필수 아님 (CLI main + Maven으로 충분). 나중에 실시간 기능이 필요해지면 그때 전환.
+- 대안: 집 PC/NAS에서 Spring Boot 상시 실행, Oracle Cloud 무료 VM (둘 다 운영 부담이 있어 후순위).
+
+## 4. 데이터 소스 (※ 정책은 착수 전 재확인)
+| 소스 | 방법 | 비고 |
+|---|---|---|
+| 쿠팡 | 파트너스 Open API (골드박스, 카테고리 베스트, 검색), HMAC 서명 | API 키 발급 승인 조건 확인 필요. **최우선 확인 사항**. 평점/리뷰 수 미제공 가능성 |
+| 네이버 | 쇼핑 검색 API | 최저가 비교용. 핫딜 랭킹 API는 없음 |
+| 토스쇼핑 | 공개 API 없음 | 스크래핑 외 방법 없음 → MVP 제외 |
+| 커뮤니티(뽐뿌, 퀘이사존 등) | RSS/목록 파싱 | 핫딜 후보 수집용. 약관·robots 확인, 호출 빈도 낮게 |
+
+현실적 구조: **핫딜 후보 수집(쿠팡 API + 커뮤니티) → 네이버 검색 API로 최저가 교차검증**.
+쿠팡 키 발급이 막히면 커뮤니티 RSS 중심으로 설계 변경.
+
+## 5. 핵심 난제 두 가지
+### 5-1. 단가 계산
+- 예: "물티슈 100매 x 10팩", "닭가슴살 100g 20팩 + 2팩 증정"
+- 1차: **정규식/규칙 기반** (숫자 + 개·매·팩·g·kg·ml·L, `x`/`*` 곱셈, `+` 증정 합산)
+- 2차: 애매한 것만 LLM(Gemini 무료 티어 등)으로 `{총수량, 단위, 단위당 용량}` JSON 구조화. 호출 한도가 있으니 규칙으로 안 풀린 건만 전송
+- 3차: 그래도 실패하면 **"단가 계산 불가"로 표시** (잘못된 단가보다 낫다)
+- 샘플 상품명 50~100개를 테스트 케이스로 만들어 파서 품질을 먼저 검증
+
+### 5-2. 동일 상품 매칭 (타사 최저가 비교)
+- 상품명으로 네이버 검색 → 후보 중 **브랜드·용량·수량이 일치하는 것만** 채택
+- 못 맞추면 "비교 불가" 표시 (신뢰도 우선)
+- 애매한 판정에만 LLM 사용 가능
+
+## 6. 데이터 스키마 (data.json 항목 초안)
+```json
+{
+  "id": "coupang-123456",
+  "source": "coupang",
+  "title": "상품명",
+  "url": "제휴 링크",
+  "image": "썸네일 URL",
+  "originalPrice": 30000,
+  "price": 19900,
+  "discountRate": 34,
+  "unit": { "type": "per_item | per_100g | per_100ml", "value": 199, "parsed": true },
+  "rating": 4.6,
+  "reviewCount": 1280,
+  "lowestOther": { "price": 21000, "mall": "네이버", "url": "...", "matched": true },
+  "vsLowestPct": -5,
+  "collectedAt": "2026-10-30T15:00:00+09:00"
+}
+```
+파일 최상단에 `generatedAt`과 소스별 그룹(source별 Top 10)을 포함.
+
+## 6-1. DB: SQLite (확정) — 라이트하게 시작
+- 서버형 DB(Oracle/MySQL) 사용 안 함. 파일 하나(`hotdeal.db`), Java에서는 JDBC + MyBatis 사용
+- Actions 실행 환경은 매번 새로 만들어지므로 **배치 시작 시 저장소에서 `hotdeal.db`를 가져오고, 끝나면 `hotdeal.db`와 `data.json`을 다시 커밋**
+- 용량 관리: 스냅샷은 30~90일만 보관하고 오래된 건 삭제. 필요해지면 DB 파일을 별도 브랜치(`data`)로 분리하고 이력을 주기적으로 합침
+- **MVP 범위는 작게**: 처음에는 `product`와 `price_snapshot`만 구현하고, `unit_parse`/`match_result`는 필요해질 때 추가
+- SQL은 MyBatis로 분리해 두어 나중에 PostgreSQL 등으로 이전할 수 있게 함
+
+| 테이블 | 용도 |
+|---|---|
+| `product` | 상품 기본정보 (소스, 소스별 상품ID, 이름, 링크, 이미지) |
+| `price_snapshot` | 수집 시점별 가격, 할인율, 평점, 리뷰 수 |
+| `unit_parse` (후순위) | 파싱 결과 (총수량, 단위, 단가, 파싱 방식: 규칙/LLM/실패) |
+| `match_result` (후순위) | 타사 최저가 매칭 결과 (후보, 일치 여부, 최저가) |
+
+## 6-2. 개발 도구 (확정)
+- 편집기: **VS Code** (Java 확장팩, REST Client, Live Server). 필요하면 같은 폴더를 Eclipse에서 Maven 프로젝트로 import해 보조로 사용
+- DB 툴: **DBeaver**
+- 버전관리: **Git + GitHub** (SVN 대신). 공개 저장소 기준이므로 API 키는 코드에 넣지 말고 GitHub Secrets에 저장
+- API 테스트: VS Code **REST Client** (`.http` 파일)
+- AI 코딩: Claude Code 사용 예정 (요금제 조건 확인 필요, 무료 플랜으로 불가능할 수 있음)
+
+## 7. UI 요구사항 (mobile-first)
+- 모바일(~640px): **카드 리스트**. 태블릿/데스크톱(768px~): **표 또는 2~3열 그리드** (`@media (min-width: 768px)` 하나로 전환)
+- 카드 우선순위: ① 이미지·상품명·할인율·현재가·단가 ② 원가(취소선)·리뷰·소스 배지 ③ **"타사 최저가 대비 -N%" 강조 배지**(핵심 가치)
+- 상단 소스 탭(전체/쿠팡/커뮤니티), 정렬(단가순/할인율순/리뷰순)은 가로 스크롤 칩 또는 드롭다운
+- 터치 영역 44px 이상, 이미지 `loading="lazy"`
+- 외부 링크: `target="_blank" rel="sponsored noopener"`
+- **수집 시각** 항상 표시, 파트너스 **대가성 문구**를 모바일에서 눈에 띄는 위치(상단 한 줄 또는 하단 고정)에 표기
+- 색상은 CSS 변수로 정의, `prefers-color-scheme` 다크모드 대응 (저비용)
+- PWA(`manifest.json`)는 MVP 이후
+
+## 8. 법적/운영 주의
+- 쿠팡 파트너스 수익 링크: 대가성 문구 필수, 제휴 링크 vs 타사 최저가 표시 간 이해충돌 정책 결정 필요
+- API 약관의 가격·이미지 캐싱 기간 제한 확인
+- 가격은 금방 바뀌므로 "수집 시각" 표기, 오래된 데이터 경고 로직
+- 개인용 도구인지, 트래픽·제휴수익 서비스인지 먼저 결정 (설계 달라짐)
+
+## 9. 구현 순서 (Claude Code에서 진행)
+0. **[사전] 쿠팡 파트너스 API 발급 가능 여부 확인, 네이버 쇼핑 API 키 발급** (코드 전에 끝낼 것)
+1. UI 목업: 샘플 data.json + 모바일 카드/데스크톱 표 전환 HTML 한 페이지 → 방향 확정
+2. 단가 파서 + 테스트 케이스 (JUnit, 샘플 상품명 50~100개)
+3. 쿠팡 API 클라이언트(HMAC 서명) + 네이버 쇼핑 API 클라이언트
+4. 동일 상품 매칭 + 최저가 비교
+5. `data.json` 생성 CLI (소스별 Top 10, 단가·최저가 대비 계산)
+6. GitHub Actions cron 워크플로우 + Pages 배포 (API 키는 Secrets)
+7. 이후: 커뮤니티 RSS 추가, 단가 파싱·매칭 결과 테이블 추가, PWA
+(SQLite의 `product`/`price_snapshot` 저장은 5단계 CLI에 포함)
+
+## 10. Claude Code에 줄 첫 지시 예시
+> hotdeal-plan.md를 읽고 9번의 1단계부터 진행해줘. Java 17, Maven, 프론트는 프레임워크 없이 바닐라로. 먼저 샘플 data.json과 반응형 목업 페이지를 만들어줘.
+
+## 11. 미결정 사항
+- [x] DB: SQLite로 확정
+- [x] 편집기 VS Code / DB 툴 DBeaver / Git 확정
+- [ ] Java 버전 (17 권장, 아직 미확정)
+- [ ] Claude Code 사용 가능한 요금제인지 확인
+- [ ] 개인용 vs 수익형 서비스
+- [ ] 쿠팡 파트너스 API 발급 결과
+- [ ] 호스팅: GitHub Pages vs Cloudflare Pages
+- [ ] LLM 사용 여부 (Gemini 무료 티어 / 미사용)
