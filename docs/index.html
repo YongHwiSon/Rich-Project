@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>핫딜 단가표</title>
+  <meta name="description" content="핫딜을 개당·100g당·100ml당 단가와 평소가 대비로 비교합니다.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <div class="wrap">
+      <h1>핫딜 단가표</h1>
+      <p class="sub">할인율보다 <strong>단가</strong>와 <strong>평소가 대비</strong>를 먼저 봅니다.</p>
+      <p id="collected" class="collected" aria-live="polite">불러오는 중…</p>
+    </div>
+  </header>
+
+  <!-- 쿠팡 파트너스 등 제휴 링크를 쓰게 되면 여기에 대가성 문구를 반드시 표기한다.
+       예: "이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다." -->
+  <div id="sampleBanner" class="banner" hidden>
+    지금 보이는 상품과 가격은 <strong>화면 확인용 더미 데이터</strong>입니다.
+  </div>
+
+  <main class="wrap">
+    <section class="controls" aria-label="필터와 정렬">
+      <div id="tabs" class="chips" role="group" aria-label="출처"></div>
+      <div id="sorts" class="chips" role="group" aria-label="정렬"></div>
+      <p id="sortHint" class="hint" hidden></p>
+    </section>
+
+    <p id="status" class="status" role="status"></p>
+
+    <ul id="cards" class="cards" aria-label="상품 목록"></ul>
+
+    <div class="table-wrap">
+      <table id="table" class="table">
+        <thead>
+          <tr>
+            <th scope="col">상품</th>
+            <th scope="col" class="num">가격</th>
+            <th scope="col" class="num">할인</th>
+            <th scope="col" class="num">단가</th>
+            <th scope="col">평소가 대비</th>
+            <th scope="col">바로가기</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </main>
+
+  <footer class="foot wrap">
+    <p>가격은 수집 시각 기준이며 바로 바뀔 수 있습니다. 구매 전에 원문에서 현재 가격과 조건을 확인하세요.</p>
+    <p>"평소가 대비"는 이 사이트가 직접 쌓은 최근 30일 가격 이력의 평균과 비교한 값이며, 이력이 3일 미만이면 표시하지 않습니다.</p>
+    <p>제목에서 수량·용량을 읽을 수 없으면 단가를 계산하지 않습니다.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

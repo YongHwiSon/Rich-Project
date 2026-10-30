@@ -1,0 +1,258 @@
+{
+  "generatedAt": "2026-10-30T21:00+09:00",
+  "isSample": true,
+  "sources": [
+    {
+      "id": "sampleA",
+      "name": "샘플 A (더미)",
+      "items": [
+        {
+          "id": "sampleA-1",
+          "source": "sampleA",
+          "title": "닭가슴살 100g x 20팩 + 2팩 증정",
+          "url": "#",
+          "image": null,
+          "originalPrice": 33000,
+          "price": 19900,
+          "discountRate": 40,
+          "unit": { "type": "per_100g", "value": 904.5, "parsed": true },
+          "rating": 4.6,
+          "reviewCount": 1280,
+          "usualPrice": { "avg30d": 24414, "min30d": 23100, "daysOfData": 14 },
+          "vsUsualPct": -18,
+          "compareLinks": [
+            { "mall": "네이버쇼핑", "url": "https://search.shopping.naver.com/search/all?query=%EB%8B%AD%EA%B0%80%EC%8A%B4%EC%82%B4%20100g%20x%2020%ED%8C%A9%20%2B%202%ED%8C%A9%20%EC%A6%9D%EC%A0%95" },
+            { "mall": "다나와", "url": "https://search.danawa.com/dsearch.php?query=%EB%8B%AD%EA%B0%80%EC%8A%B4%EC%82%B4%20100g%20x%2020%ED%8C%A9%20%2B%202%ED%8C%A9%20%EC%A6%9D%EC%A0%95" }
+          ],
+          "collectedAt": "2026-10-30T21:00+09:00"
+        },
+        {
+          "id": "sampleA-2",
+          "source": "sampleA",
+          "title": "생수 2L x 6병",
+          "url": "#",
+          "image": null,
+          "originalPrice": 7800,
+          "price": 5900,
+          "discountRate": 24,
+          "unit": { "type": "per_100ml", "value": 49.2, "parsed": true },
+          "rating": null,
+          "reviewCount": null,
+          "usualPrice": { "avg30d": 6650, "min30d": 6300, "daysOfData": 14 },
+          "vsUsualPct": -11,
+          "compareLinks": [
+            { "mall": "네이버쇼핑", "url": "https://search.shopping.naver.com/search/all?query=%EC%83%9D%EC%88%98%202L%20x%206%EB%B3%91" },
+            { "mall": "다나와", "url": "https://search.danawa.com/dsearch.php?query=%EC%83%9D%EC%88%98%202L%20x%206%EB%B3%91" }
+          ],
+          "collectedAt": "2026-10-30T21:00+09:00"
+        },
+        {
+          "id": "sampleA-3",
+          "source": "sampleA",
+          "title": "물티슈 100매 x 10팩",
+          "url": "#",
+          "image": null,
+          "originalPrice": 22000,
+          "price": 14900,
+          "discountRate": 32,
+          "unit": { "type": "per_item", "value": 14.9, "parsed": true },
+          "rating": 4.5,
+          "reviewCount": 3120,
+          "usualPrice": { "avg30d": 17250, "min30d": 16400, "daysOfData": 14 },
+          "vsUsualPct": -14,
+          "compareLinks": [
+            { "mall": "네이버쇼핑", "url": "https://search.shopping.naver.com/search/all?query=%EB%AC%BC%ED%8B%B0%EC%8A%88%20100%EB%A7%A4%20x%2010%ED%8C%A9" },
+            { "mall": "다나와", "url": "https://search.danawa.com/dsearch.php?query=%EB%AC%BC%ED%8B%B0%EC%8A%88%20100%EB%A7%A4%20x%2010%ED%8C%A9" }
+          ],
+          "collectedAt": "2026-10-30T21:00+09:00"
+        },
+        {
+          "id": "sampleA-4",
+          "source": "sampleA",
+          "title": "우유 1L x 10개",
+          "url": "#",
+          "image": null,
+          "originalPrice": 21000,
+          "price": 18900,
+          "discountRate": 10,
+          "unit": { "type": "per_100ml", "value": 189.0, "parsed": true },
+          "rating": null,
+          "reviewCount": null,
+          "usualPrice": { "avg30d": 19886, "min30d": 18700, "daysOfData": 14 },
+          "vsUsualPct": -5,
+          "compareLinks": [
+            { "mall": "네이버쇼핑", "url": "https://search.shopping.naver.com/search/all?query=%EC%9A%B0%EC%9C%A0%201L%20x%2010%EA%B0%9C" },
+            { "mall": "다나와", "url": "https://search.danawa.com/dsearch.php?query=%EC%9A%B0%EC%9C%A0%201L%20x%2010%EA%B0%9C" }
+          ],
+          "collectedAt": "2026-10-30T21:00+09:00"
+        },
+        {
+          "id": "sampleA-5",
+          "source": "sampleA",
+          "title": "라면 120g x 5개입 x 8봉",
+          "url": "#",
+          "image": null,
+          "originalPrice": 22000,
+          "price": 15900,
+          "discountRate": 28,
+          "unit": { "type": "per_100g", "value": 331.3, "parsed": true },
+          "rating": null,
+          "reviewCount": null,
+          "usualPrice": { "avg30d": 17750, "min30d": 17000, "daysOfData": 14 },
+          "vsUsualPct": -10,
+          "compareLinks": [
+            { "mall": "네이버쇼핑", "url": "https://search.shopping.naver.com/search/all?query=%EB%9D%BC%EB%A9%B4%20120g%20x%205%EA%B0%9C%EC%9E%85%20x%208%EB%B4%89" },
+            { "mall": "다나와", "url": "https://search.danawa.com/dsearch.php?query=%EB%9D%BC%EB%A9%B4%20120g%20x%205%EA%B0%9C%EC%9E%85%20x%208%EB%B4%89" }
+          ],
+          "collectedAt": "2026-10-30T21:00+09:00"
+        },
+        {
+          "id": "sampleA-6",
+          "source": "sampleA",
+          "title": "콜라 500ml x 24개",
+          "url": "#",
+          "image": null,
+          "originalPrice": 30000,
+          "price": 21900,
+          "discountRate": 27,
+          "unit": { "type": "per_100ml", "value": 182.5, "parsed": true },
+          "rating": null,
+          "reviewCount": null,
+          "usualPrice": { "avg30d": 23414, "min30d": 22100, "daysOfData": 14 },
+          "vsUsualPct": -6,
+          "compareLinks": [
+            { "mall": "네이버쇼핑", "url": "https://search.shopping.naver.com/search/all?query=%EC%BD%9C%EB%9D%BC%20500ml%20x%2024%EA%B0%9C" },
+            { "mall": "다나와", "url": "https://search.danawa.com/dsearch.php?query=%EC%BD%9C%EB%9D%BC%20500ml%20x%2024%EA%B0%9C" }
+          ],
+          "collectedAt": "2026-10-30T21:00+09:00"
+        }
+      ]
+    },
+    {
+      "id": "sampleB",
+      "name": "샘플 B (더미)",
+      "items": [
+        {
+          "id": "sampleB-1",
+          "source": "sampleB",
+          "title": "참치 150g x 10캔 + 2캔 증정",
+          "url": "#",
+          "image": null,
+          "originalPrice": 24000,
+          "price": 17900,
+          "discountRate": 25,
+          "unit": { "type": "per_100g", "value": 994.4, "parsed": true },
+          "rating": null,
+          "reviewCount": null,
+          "usualPrice": { "avg30d": 19364, "min30d": 18400, "daysOfData": 14 },
+          "vsUsualPct": -8,
+          "compareLinks": [
+            { "mall": "네이버쇼핑", "url": "https://search.shopping.naver.com/search/all?query=%EC%B0%B8%EC%B9%98%20150g%20x%2010%EC%BA%94%20%2B%202%EC%BA%94%20%EC%A6%9D%EC%A0%95" },
+            { "mall": "다나와", "url": "https://search.danawa.com/dsearch.php?query=%EC%B0%B8%EC%B9%98%20150g%20x%2010%EC%BA%94%20%2B%202%EC%BA%94%20%EC%A6%9D%EC%A0%95" }
+          ],
+          "collectedAt": "2026-10-30T21:00+09:00"
+        },
+        {
+          "id": "sampleB-2",
+          "source": "sampleB",
+          "title": "화장지 30롤 3팩",
+          "url": "#",
+          "image": null,
+          "originalPrice": 45000,
+          "price": 29900,
+          "discountRate": 34,
+          "unit": { "type": "per_item", "value": 332.2, "parsed": true },
+          "rating": null,
+          "reviewCount": null,
+          "usualPrice": { "avg30d": 34564, "min30d": 32700, "daysOfData": 14 },
+          "vsUsualPct": -13,
+          "compareLinks": [
+            { "mall": "네이버쇼핑", "url": "https://search.shopping.naver.com/search/all?query=%ED%99%94%EC%9E%A5%EC%A7%80%2030%EB%A1%A4%203%ED%8C%A9" },
+            { "mall": "다나와", "url": "https://search.danawa.com/dsearch.php?query=%ED%99%94%EC%9E%A5%EC%A7%80%2030%EB%A1%A4%203%ED%8C%A9" }
+          ],
+          "collectedAt": "2026-10-30T21:00+09:00"
+        },
+        {
+          "id": "sampleB-3",
+          "source": "sampleB",
+          "title": "계란 30구 2판",
+          "url": "#",
+          "image": null,
+          "originalPrice": 19000,
+          "price": 15900,
+          "discountRate": 16,
+          "unit": { "type": "per_item", "value": 265.0, "parsed": true },
+          "rating": null,
+          "reviewCount": null,
+          "usualPrice": { "avg30d": 16279, "min30d": 15500, "daysOfData": 14 },
+          "vsUsualPct": -2,
+          "compareLinks": [
+            { "mall": "네이버쇼핑", "url": "https://search.shopping.naver.com/search/all?query=%EA%B3%84%EB%9E%80%2030%EA%B5%AC%202%ED%8C%90" },
+            { "mall": "다나와", "url": "https://search.danawa.com/dsearch.php?query=%EA%B3%84%EB%9E%80%2030%EA%B5%AC%202%ED%8C%90" }
+          ],
+          "collectedAt": "2026-10-30T21:00+09:00"
+        },
+        {
+          "id": "sampleB-4",
+          "source": "sampleB",
+          "title": "세제 3L 1+1",
+          "url": "#",
+          "image": null,
+          "originalPrice": 18000,
+          "price": 12900,
+          "discountRate": 28,
+          "unit": { "type": "per_100ml", "value": 215.0, "parsed": true },
+          "rating": null,
+          "reviewCount": null,
+          "usualPrice": { "avg30d": 14621, "min30d": 13900, "daysOfData": 14 },
+          "vsUsualPct": -12,
+          "compareLinks": [
+            { "mall": "네이버쇼핑", "url": "https://search.shopping.naver.com/search/all?query=%EC%84%B8%EC%A0%9C%203L%201%2B1" },
+            { "mall": "다나와", "url": "https://search.danawa.com/dsearch.php?query=%EC%84%B8%EC%A0%9C%203L%201%2B1" }
+          ],
+          "collectedAt": "2026-10-30T21:00+09:00"
+        },
+        {
+          "id": "sampleB-5",
+          "source": "sampleB",
+          "title": "냉동만두 1.05kg",
+          "url": "#",
+          "image": null,
+          "originalPrice": 12000,
+          "price": 8900,
+          "discountRate": 26,
+          "unit": { "type": "per_100g", "value": 847.6, "parsed": true },
+          "rating": null,
+          "reviewCount": null,
+          "usualPrice": null,
+          "vsUsualPct": null,
+          "compareLinks": [
+            { "mall": "네이버쇼핑", "url": "https://search.shopping.naver.com/search/all?query=%EB%83%89%EB%8F%99%EB%A7%8C%EB%91%90%201.05kg" },
+            { "mall": "다나와", "url": "https://search.danawa.com/dsearch.php?query=%EB%83%89%EB%8F%99%EB%A7%8C%EB%91%90%201.05kg" }
+          ],
+          "collectedAt": "2026-10-30T21:00+09:00"
+        },
+        {
+          "id": "sampleB-6",
+          "source": "sampleB",
+          "title": "무선 이어폰 특가",
+          "url": "#",
+          "image": null,
+          "originalPrice": 59000,
+          "price": 39900,
+          "discountRate": 32,
+          "unit": { "type": null, "value": null, "parsed": false },
+          "rating": null,
+          "reviewCount": null,
+          "usualPrice": { "avg30d": 45914, "min30d": 43400, "daysOfData": 14 },
+          "vsUsualPct": -13,
+          "compareLinks": [
+            { "mall": "네이버쇼핑", "url": "https://search.shopping.naver.com/search/all?query=%EB%AC%B4%EC%84%A0%20%EC%9D%B4%EC%96%B4%ED%8F%B0%20%ED%8A%B9%EA%B0%80" },
+            { "mall": "다나와", "url": "https://search.danawa.com/dsearch.php?query=%EB%AC%B4%EC%84%A0%20%EC%9D%B4%EC%96%B4%ED%8F%B0%20%ED%8A%B9%EA%B0%80" }
+          ],
+          "collectedAt": "2026-10-30T21:00+09:00"
+        }
+      ]
+    }
+  ]
+}

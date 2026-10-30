@@ -1,0 +1,27 @@
+# 빌드 산출물
+target/
+*.class
+
+# IDE
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+.vscode/*
+!.vscode/extensions.json
+
+# 비밀값 (API 키 등은 절대 커밋 금지 — public 저장소)
+.env
+.env.*
+*.key
+secrets.*
+*.http.env.json
+
+# 로컬 개발용 DB (운영용 data/hotdeal.db 는 나중에 Actions에서 커밋)
+data/local-*.db
+data/*.db-journal
+
+# OS
+.DS_Store
+Thumbs.db
